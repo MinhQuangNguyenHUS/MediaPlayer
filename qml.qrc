@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>quang.qml</file>
+        <file>ListVideo.qml</file>
+        <file>Demo.qml</file>
+        <file>da_click.png</file>
     </qresource>
 </RCC>
