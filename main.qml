@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtQuick 2.7
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import QtQuick.Controls 1.4
@@ -8,6 +9,9 @@ Window {
     visible: true
     width: 640
     height: 505
+    property alias rectangle1: rectangle1
+    property alias rectangle: rectangle
+    property alias text1: text1
     title: qsTr("Hello World")
 
     Column {
@@ -59,16 +63,76 @@ Window {
                     id: item1
                     Rectangle{
                         id: rectangle
-                        Text:"Playlist"
+                        x: 3
+                        y: 35
+                        width: 66
+                        height: 30
+                        border.color: "black"
+                        border.width:   1
 
                         Text {
                             id: text1
+                            x: 5
+                            y: 3
+                            width: 64
+                            height: 22
                             text: qsTr("Playlist")
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
                             font.pixelSize: 12
+
                         }
 
 
                     }
+                    Rectangle {
+                        id: rectangle1
+                        x: 3
+                        y: 99
+                        width: 69
+                        height: 29
+                        color: "#ffffff"
+                        border.color: "black"
+                        border.width:   1
+                        Text {
+                            id: text2
+                            x: 5
+                            y: 3
+                            width: 64
+                            height: 22
+                            text: qsTr("Artist")
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 12
+
+                        }
+
+                    }
+
+                    Rectangle {
+                        id: rectangle2
+                        x: 3
+                        y: 172
+                        width: 76
+                        height: 28
+                        color: "#ffffff"
+                        border.color: "black"
+                        border.width:   1
+                        Text {
+                            id: text3
+                            x: 5
+                            y: 3
+                            width: 71
+                            height: 22
+                            text: qsTr("Other Library")
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignLeft
+                            font.pixelSize: 12
+
+                        }
+
+                    }
+
                 }
             }
 
@@ -181,14 +245,16 @@ Window {
                 anchors.right: parent.right
                 anchors.rightMargin: 80
             }
+            Slider{
+                id:slider
+                x: 100
+                y: 10
+                width: 80
+                height: 20
+
+            }
         }
     }
-
-
-
-
-
-
 }
 
 
