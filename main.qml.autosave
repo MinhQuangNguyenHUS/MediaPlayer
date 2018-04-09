@@ -1,0 +1,201 @@
+import QtQuick 2.9
+import QtQuick 2.7
+import QtQuick.Window 2.3
+import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.3
+import QtQml 2.2
+import QtQml.Models 2.2
+import QtMultimedia 5.8
+import QtQuick.Dialogs 1.0
+Window {
+    id: window
+    visible: true
+    width: 640
+    height: 505
+    property alias listView: listView
+    title: qsTr("Audio_app")
+
+    FileDialog {
+        id: fileDialog
+        selectMultiple: true
+        onAccepted: {
+            for (var i = 0 ; i < fileDialog.fileUrls.length ; i ++){
+                listView.model.append({name : fileDialog.fileUrls[i].toString()})
+            }
+        }
+    }
+    Column {
+        id: column
+        anchors.fill: parent
+        Row {
+            id: row
+            height: 40
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            clip: true
+
+
+            Frame {
+                id: frame2
+                anchors.fill: parent
+                Button {
+                    id: button
+                    x: -12
+                    y: -12
+                    text: qsTr("LoadFile")
+                    onClicked: {fileDialog.open()}
+                }
+            }
+        }
+
+        RowLayout {
+            id: rowLayout
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: row2.height
+            antialiasing: false
+            transformOrigin: Item.Center
+            spacing: 0
+            anchors.top: parent.top
+            anchors.topMargin: row.height
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+
+
+
+            Rectangle {
+                id: rectangle
+                width: 200
+                height: 200
+                color: "#ffffff"
+                border.width: 1
+                border.color: "#000000"
+                Layout.fillHeight: true
+            }
+            //            Rectangle {
+            //                id: videoArea
+            //                color: "#ccccff"
+            //                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            //                Layout.fillHeight: true
+            //                Layout.fillWidth: true
+            //                Video {
+            //                    id: video
+            //                    focus: true
+            //                    volume: slider.value
+            //                    Keys.onSpacePressed: video.playbackState == MediaPlayer.PlayingState ? video.pause() : video.play()
+            //                    Keys.onLeftPressed: video.seek(video.position - 5000)
+            //                    Keys.onRightPressed: video.seek(video.position + 5000)
+            //                }
+            //            }
+            Rectangle {
+                id: rec
+                border.color: "black"
+                border.width: 1;
+                width: 223
+                height: 383
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                ListView {
+                    id: listView
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 0
+                    boundsBehavior: Flickable.StopAtBounds
+                    flickableDirection: Flickable.HorizontalAndVerticalFlick
+                    model: ListModel {}
+                    clip: true
+                    delegate:
+                        Text {
+                        id: text12
+                        width: parent.width
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                        text: name
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                playMusic.source = text12.text
+                                playMusic.play()
+                                roundButton1.text = "Pause"
+                                //                                video.source = text12.text
+                                //                                video.play()
+                            }
+                        }
+                    }
+
+                    spacing: 10
+                }
+            }
+            MediaPlayer {
+                id: playMusic
+            }
+        }
+        Row {
+            id: row2
+            height: 40
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+
+            RoundButton {
+                id: roundButton
+                x: 180
+                y: 0
+                width: 40
+                text: "Return"
+                anchors.left: roundButton1.right
+                anchors.leftMargin: -200
+            }
+            RoundButton {
+                id: roundButton1
+                y: 0
+                text: "Play"
+                anchors.left: roundButton2.right
+                anchors.leftMargin: -200
+                onClicked: {
+                    if(roundButton1.text == "Pause"){
+                        roundButton1.text = "Play"
+                        playMusic.pause()}
+                    else if(roundButton1.text == "Play"){
+                        roundButton1.text = "Pause"
+                        playMusic.play()}
+                }
+            }
+
+            RoundButton {
+                id: roundButton2
+                x: 800
+                y: 0
+                text: "Next"
+                focusPolicy: Qt.NoFocus
+                anchors.right: parent.right
+                anchors.rightMargin: 80
+            }
+            Slider{
+                id:slider
+                y: 10
+                width: 80
+                height: 20
+                anchors.left: parent.left
+                anchors.leftMargin: columnLayout.width
+
+            }
+        }
+
+    }
+}
+
+
